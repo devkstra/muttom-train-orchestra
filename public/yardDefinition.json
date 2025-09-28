@@ -1,225 +1,113 @@
 {
   "nodes": {
-    // Entry/Exit Points (Parallel Tracks)
-    "E1": { "id": "E1", "type": "entry", "x": 80, "y": 180, "connections": ["E1a"], "label": "E-1" },
-    "E2": { "id": "E2", "type": "exit", "x": 80, "y": 220, "connections": ["E2a"], "label": "E-2" },
+    "E1": { "id": "E1", "type": "entry", "x": 50, "y": 200, "connections": ["E2"], "label": "E-1" },
+    "E2": { "id": "E2", "type": "track", "x": 100, "y": 200, "connections": ["E1", "SW1"], "label": "E-2" },
     
-    // Entry Track E-1 Path to Inspection
-    "E1a": { "id": "E1a", "type": "track", "x": 150, "y": 180, "connections": ["E1", "E1b"], "label": "E-1a" },
-    "E1b": { "id": "E1b", "type": "track", "x": 220, "y": 180, "connections": ["E1a", "E1b1", "INTERCHANGE"], "label": "E-1b" },
-    "E1b1": { "id": "E1b1", "type": "switch", "x": 290, "y": 180, "connections": ["E1b", "E1b1a", "E1b1b"], "label": "E-1b.1" },
-    "E1b1a": { "id": "E1b1a", "type": "switch", "x": 360, "y": 160, "connections": ["E1b1", "E1b1aa", "E1b1ab"], "label": "E-1b.1a" },
-    "E1b1b": { "id": "E1b1b", "type": "track", "x": 360, "y": 200, "connections": ["E1b1", "IL1"], "label": "E-1b.1b" },
-    "E1b1aa": { "id": "E1b1aa", "type": "track", "x": 430, "y": 140, "connections": ["E1b1a", "IL2"], "label": "E-1b.1aa" },
-    "E1b1ab": { "id": "E1b1ab", "type": "track", "x": 430, "y": 180, "connections": ["E1b1a", "IL3"], "label": "E-1b.1ab" },
+    "SW1": { "id": "SW1", "type": "switch", "x": 150, "y": 200, "connections": ["E2", "SW2", "WL1_ENTRY"], "label": "Entry Switch" },
+    "SW2": { "id": "SW2", "type": "switch", "x": 200, "y": 180, "connections": ["SW1", "INTERCHANGE"], "label": "Main Switch" },
     
-    // Inspection Bays (Parallel Layout)
-    "IL1": { "id": "IL1", "type": "bay", "x": 500, "y": 200, "connections": ["E1b1b"], "label": "IL-1" },
-    "IL2": { "id": "IL2", "type": "bay", "x": 500, "y": 140, "connections": ["E1b1aa"], "label": "IL-2" },
-    "IL3": { "id": "IL3", "type": "bay", "x": 500, "y": 180, "connections": ["E1b1ab"], "label": "IL-3" },
-    "DIC": { "id": "DIC", "type": "bay", "x": 500, "y": 220, "connections": ["E1b2a"], "label": "DIC-1" },
-    "E1b2a": { "id": "E1b2a", "type": "track", "x": 430, "y": 220, "connections": ["DIC", "E1b2"], "label": "E-1b.2a" },
-    "E1b2": { "id": "E1b2", "type": "switch", "x": 360, "y": 220, "connections": ["E1b2a", "E1b"], "label": "E-1b.2" },
+    "WL1_ENTRY": { "id": "WL1_ENTRY", "type": "track", "x": 150, "y": 250, "connections": ["SW1", "WL1"], "label": "Workshop Entry" },
+    "WL1": { "id": "WL1", "type": "bay", "x": 100, "y": 300, "connections": ["WL1_ENTRY"], "label": "WL-1" },
+    "WL2": { "id": "WL2", "type": "bay", "x": 100, "y": 330, "connections": ["WL2_ENTRY"], "label": "WL-2" },
+    "WL3": { "id": "WL3", "type": "bay", "x": 100, "y": 360, "connections": ["WL3_ENTRY"], "label": "WL-3" },
+    "WL4": { "id": "WL4", "type": "bay", "x": 100, "y": 390, "connections": ["WL4_ENTRY"], "label": "WL-4 (Wheel Alignment)" },
     
-    // Track Interchange
-    "INTERCHANGE": { "id": "INTERCHANGE", "type": "switch", "x": 220, "y": 200, "connections": ["E1b", "E2a"], "label": "Track Interchange" },
+    "WL2_ENTRY": { "id": "WL2_ENTRY", "type": "track", "x": 150, "y": 330, "connections": ["WL2", "SW3"], "label": "WL-2 Entry" },
+    "WL3_ENTRY": { "id": "WL3_ENTRY", "type": "track", "x": 150, "y": 360, "connections": ["WL3", "SW3"], "label": "WL-3 Entry" },
+    "WL4_ENTRY": { "id": "WL4_ENTRY", "type": "track", "x": 150, "y": 390, "connections": ["WL4", "SL2"], "label": "WL-4 Entry" },
     
-    // Exit Track E-2 Path to Workshop and Sidings
-    "E2a": { "id": "E2a", "type": "track", "x": 150, "y": 220, "connections": ["E2", "INTERCHANGE", "E2W", "E2a1", "E2a2"], "label": "E-2a" },
+    "SW3": { "id": "SW3", "type": "switch", "x": 200, "y": 345, "connections": ["WL2_ENTRY", "WL3_ENTRY", "SW4"], "label": "Workshop Switch" },
+    "SW4": { "id": "SW4", "type": "switch", "x": 250, "y": 345, "connections": ["SW3", "SL1"], "label": "Shunting Switch" },
     
-    // Workshop Routing from E-2
-    "E2W": { "id": "E2W", "type": "switch", "x": 100, "y": 250, "connections": ["E2a", "E2W1", "E2W2"], "label": "E-2W" },
-    "E2W1": { "id": "E2W1", "type": "track", "x": 70, "y": 280, "connections": ["E2W", "E2W1b"], "label": "E-2W1" },
-    "E2W1b": { "id": "E2W1b", "type": "switch", "x": 70, "y": 310, "connections": ["E2W1", "E2W1b1"], "label": "E-2W1b" },
-    "E2W1b1": { "id": "E2W1b1", "type": "track", "x": 70, "y": 340, "connections": ["E2W1b", "WL1"], "label": "E-2W1b.1" },
-    "WL1": { "id": "WL1", "type": "bay", "x": 70, "y": 370, "connections": ["E2W1b1"], "label": "WL-1" },
+    "SL1": { "id": "SL1", "type": "shunting", "x": 100, "y": 280, "connections": ["SW4"], "label": "SL-1 Shunting Neck" },
+    "SL2": { "id": "SL2", "type": "shunting", "x": 100, "y": 420, "connections": ["WL4_ENTRY"], "label": "SL-2 Shunting Neck" },
     
-    "E2W2": { "id": "E2W2", "type": "track", "x": 130, "y": 280, "connections": ["E2W", "E2W2a"], "label": "E-2W2" },
-    "E2W2a": { "id": "E2W2a", "type": "switch", "x": 130, "y": 310, "connections": ["E2W2", "E2W2aa", "E2W2ab"], "label": "E-2W2a" },
-    "E2W2aa": { "id": "E2W2aa", "type": "switch", "x": 100, "y": 340, "connections": ["E2W2a", "E2W2aa1", "E2W2aa2"], "label": "E-2W2aa" },
-    "E2W2aa1": { "id": "E2W2aa1", "type": "track", "x": 70, "y": 400, "connections": ["E2W2aa", "WL3"], "label": "E-2W2aa.1" },
-    "E2W2aa2": { "id": "E2W2aa2", "type": "track", "x": 100, "y": 400, "connections": ["E2W2aa", "WL2"], "label": "E-2W2aa.2" },
-    "E2W2ab": { "id": "E2W2ab", "type": "switch", "x": 160, "y": 340, "connections": ["E2W2a", "E2W2ab1"], "label": "E-2W2ab" },
-    "E2W2ab1": { "id": "E2W2ab1", "type": "track", "x": 160, "y": 370, "connections": ["E2W2ab", "WL4"], "label": "E-2W2ab.1" },
+    "INTERCHANGE": { "id": "INTERCHANGE", "type": "switch", "x": 300, "y": 180, "connections": ["SW2", "SW5", "TEST_TRACK_W"], "label": "Track Interchange" },
+    "SW5": { "id": "SW5", "type": "switch", "x": 400, "y": 180, "connections": ["INTERCHANGE", "IL_ENTRY"], "label": "Inspection Switch" },
     
-    "WL2": { "id": "WL2", "type": "bay", "x": 100, "y": 430, "connections": ["E2W2aa2"], "label": "WL-2" },
-    "WL3": { "id": "WL3", "type": "bay", "x": 70, "y": 430, "connections": ["E2W2aa1"], "label": "WL-3" },
-    "WL4": { "id": "WL4", "type": "bay", "x": 160, "y": 400, "connections": ["E2W2ab1"], "label": "WL-4 (Wheel Alignment)" },
+    "IL_ENTRY": { "id": "IL_ENTRY", "type": "track", "x": 500, "y": 180, "connections": ["SW5", "IL1"], "label": "Inspection Entry" },
+    "IL1": { "id": "IL1", "type": "bay", "x": 600, "y": 160, "connections": ["IL_ENTRY", "IL2"], "label": "IL-1" },
+    "IL2": { "id": "IL2", "type": "bay", "x": 700, "y": 160, "connections": ["IL1", "IL3"], "label": "IL-2" },
+    "IL3": { "id": "IL3", "type": "bay", "x": 800, "y": 160, "connections": ["IL2", "DIC"], "label": "IL-3" },
+    "DIC": { "id": "DIC", "type": "bay", "x": 900, "y": 160, "connections": ["IL3", "INSPECTION_EXIT"], "label": "Deep Internal Cleaning DIC-1" },
     
-    // Shunting Necks
-    "SL1": { "id": "SL1", "type": "shunting", "x": 50, "y": 300, "connections": ["E2W"], "label": "SL-1" },
-    "SL2": { "id": "SL2", "type": "shunting", "x": 190, "y": 370, "connections": ["E2W2ab"], "label": "SL-2" },
-    "SL3": { "id": "SL3", "type": "shunting", "x": 780, "y": 350, "connections": ["E2b2b"], "label": "SL-3" },
+    "INSPECTION_EXIT": { "id": "INSPECTION_EXIT", "type": "track", "x": 900, "y": 200, "connections": ["DIC", "SW6"], "label": "Inspection Exit" },
+    "SW6": { "id": "SW6", "type": "switch", "x": 850, "y": 250, "connections": ["INSPECTION_EXIT", "SL3", "SIDING_ENTRY"], "label": "Exit Switch" },
     
-    // Siding Routing from E-2a
-    "E2a1": { "id": "E2a1", "type": "track", "x": 200, "y": 240, "connections": ["E2a", "S2A"], "label": "E-2a.1" },
-    "E2a2": { "id": "E2a2", "type": "track", "x": 200, "y": 260, "connections": ["E2a", "S1A"], "label": "E-2a.2" },
+    "SL3": { "id": "SL3", "type": "shunting", "x": 750, "y": 300, "connections": ["SW6"], "label": "SL-3 Shunting Neck" },
     
-    // Siding S1 (Special routing from E-1b.2)
-    "S1A": { "id": "S1A", "type": "siding-slot", "x": 230, "y": 260, "connections": ["E2a2", "S1B"], "label": "S1-a", "metadata": { "sidingId": "S1", "slot": "a", "reverseCost": 1 } },
-    "S1B": { "id": "S1B", "type": "siding-slot", "x": 260, "y": 260, "connections": ["S1A"], "label": "S1-b", "metadata": { "sidingId": "S1", "slot": "b", "reverseCost": 2 } },
+    "SIDING_ENTRY": { "id": "SIDING_ENTRY", "type": "track", "x": 900, "y": 250, "connections": ["SW6", "S1_SWITCH"], "label": "Siding Entry" },
     
-    // Siding S2
-    "S2A": { "id": "S2A", "type": "siding-slot", "x": 230, "y": 240, "connections": ["E2a1", "S2B"], "label": "S2-a", "metadata": { "sidingId": "S2", "slot": "a", "reverseCost": 1 } },
-    "S2B": { "id": "S2B", "type": "siding-slot", "x": 260, "y": 240, "connections": ["S2A"], "label": "S2-b", "metadata": { "sidingId": "S2", "slot": "b", "reverseCost": 2 } },
+    "S1_SWITCH": { "id": "S1_SWITCH", "type": "switch", "x": 950, "y": 250, "connections": ["SIDING_ENTRY", "S1A", "S2_SWITCH"], "label": "S1 Switch" },
+    "S1A": { "id": "S1A", "type": "siding-slot", "x": 1000, "y": 250, "connections": ["S1_SWITCH", "S1B"], "label": "S1-a", "metadata": { "sidingId": "S1", "slot": "a", "reverseCost": 1 } },
+    "S1B": { "id": "S1B", "type": "siding-slot", "x": 1050, "y": 250, "connections": ["S1A"], "label": "S1-b", "metadata": { "sidingId": "S1", "slot": "b", "reverseCost": 2 } },
     
-    // Main Siding Branch E-2b
-    "E2b": { "id": "E2b", "type": "switch", "x": 300, "y": 280, "connections": ["E2a", "E2b1", "E2b2"], "label": "E-2b" },
+    "S2_SWITCH": { "id": "S2_SWITCH", "type": "switch", "x": 950, "y": 280, "connections": ["S1_SWITCH", "S2A", "S3_SWITCH"], "label": "S2 Switch" },
+    "S2A": { "id": "S2A", "type": "siding-slot", "x": 1000, "y": 280, "connections": ["S2_SWITCH", "S2B"], "label": "S2-a", "metadata": { "sidingId": "S2", "slot": "a", "reverseCost": 1 } },
+    "S2B": { "id": "S2B", "type": "siding-slot", "x": 1050, "y": 280, "connections": ["S2A"], "label": "S2-b", "metadata": { "sidingId": "S2", "slot": "b", "reverseCost": 2 } },
     
-    // E-2b.1 Branch (S9, S10, S11, S12)
-    "E2b1": { "id": "E2b1", "type": "switch", "x": 350, "y": 260, "connections": ["E2b", "E2b1a", "E2b1b"], "label": "E-2b.1" },
-    "E2b1a": { "id": "E2b1a", "type": "switch", "x": 400, "y": 240, "connections": ["E2b1", "E2b1aa", "E2b1ab"], "label": "E-2b.1a" },
-    "E2b1aa": { "id": "E2b1aa", "type": "track", "x": 450, "y": 220, "connections": ["E2b1a", "S12A"], "label": "E-2b.1aa" },
-    "E2b1ab": { "id": "E2b1ab", "type": "track", "x": 450, "y": 260, "connections": ["E2b1a", "S11A"], "label": "E-2b.1ab" },
-    "E2b1b": { "id": "E2b1b", "type": "switch", "x": 400, "y": 280, "connections": ["E2b1", "E2b1ba", "E2b1bb"], "label": "E-2b.1b" },
-    "E2b1ba": { "id": "E2b1ba", "type": "track", "x": 450, "y": 300, "connections": ["E2b1b", "S10A"], "label": "E-2b.1ba" },
-    "E2b1bb": { "id": "E2b1bb", "type": "track", "x": 450, "y": 320, "connections": ["E2b1b", "S9A"], "label": "E-2b.1bb" },
+    "S3_SWITCH": { "id": "S3_SWITCH", "type": "switch", "x": 950, "y": 310, "connections": ["S2_SWITCH", "S3A", "S4_SWITCH"], "label": "S3 Switch" },
+    "S3A": { "id": "S3A", "type": "siding-slot", "x": 1000, "y": 310, "connections": ["S3_SWITCH", "S3B"], "label": "S3-a", "metadata": { "sidingId": "S3", "slot": "a", "reverseCost": 1 } },
+    "S3B": { "id": "S3B", "type": "siding-slot", "x": 1050, "y": 310, "connections": ["S3A"], "label": "S3-b", "metadata": { "sidingId": "S3", "slot": "b", "reverseCost": 2 } },
     
-    // E-2b.2 Branch (S3, S4, S5, S6, S7, S8)
-    "E2b2": { "id": "E2b2", "type": "switch", "x": 350, "y": 300, "connections": ["E2b", "E2b2a", "E2b2b"], "label": "E-2b.2" },
-    "E2b2a": { "id": "E2b2a", "type": "switch", "x": 400, "y": 340, "connections": ["E2b2", "E2b2a1", "E2b2a2"], "label": "E-2b.2a" },
-    "E2b2a1": { "id": "E2b2a1", "type": "track", "x": 450, "y": 360, "connections": ["E2b2a", "S4A"], "label": "E-2b.2a.1" },
-    "E2b2a2": { "id": "E2b2a2", "type": "track", "x": 450, "y": 380, "connections": ["E2b2a", "S5A"], "label": "E-2b.2a.2" },
-    "E2b2b": { "id": "E2b2b", "type": "switch", "x": 400, "y": 400, "connections": ["E2b2", "E2b2ba", "E2b2bb", "SL3"], "label": "E-2b.2b" },
-    "E2b2ba": { "id": "E2b2ba", "type": "switch", "x": 450, "y": 420, "connections": ["E2b2b", "E2b2ba1", "E2b2ba2"], "label": "E-2b.2ba" },
-    "E2b2ba1": { "id": "E2b2ba1", "type": "track", "x": 500, "y": 440, "connections": ["E2b2ba", "S6A"], "label": "E-2b.2ba.1" },
-    "E2b2ba2": { "id": "E2b2ba2", "type": "track", "x": 500, "y": 460, "connections": ["E2b2ba", "S7A"], "label": "E-2b.2ba.2" },
-    "E2b2bb": { "id": "E2b2bb", "type": "track", "x": 450, "y": 480, "connections": ["E2b2b", "S8A"], "label": "E-2b.2bb" },
+    "S4_SWITCH": { "id": "S4_SWITCH", "type": "switch", "x": 950, "y": 340, "connections": ["S3_SWITCH", "S4A", "S5_SWITCH"], "label": "S4 Switch" },
+    "S4A": { "id": "S4A", "type": "siding-slot", "x": 1000, "y": 340, "connections": ["S4_SWITCH", "S4B"], "label": "S4-a", "metadata": { "sidingId": "S4", "slot": "a", "reverseCost": 1 } },
+    "S4B": { "id": "S4B", "type": "siding-slot", "x": 1050, "y": 340, "connections": ["S4A"], "label": "S4-b", "metadata": { "sidingId": "S4", "slot": "b", "reverseCost": 2 } },
     
-    // Siding S3 (connected to main branch)
-    "S3A": { "id": "S3A", "type": "siding-slot", "x": 320, "y": 320, "connections": ["E2b", "S3B"], "label": "S3-a", "metadata": { "sidingId": "S3", "slot": "a", "reverseCost": 1 } },
-    "S3B": { "id": "S3B", "type": "siding-slot", "x": 350, "y": 320, "connections": ["S3A"], "label": "S3-b", "metadata": { "sidingId": "S3", "slot": "b", "reverseCost": 2 } },
+    "S5_SWITCH": { "id": "S5_SWITCH", "type": "switch", "x": 950, "y": 370, "connections": ["S4_SWITCH", "S5A", "S6_SWITCH"], "label": "S5 Switch" },
+    "S5A": { "id": "S5A", "type": "siding-slot", "x": 1000, "y": 370, "connections": ["S5_SWITCH", "S5B"], "label": "S5-a", "metadata": { "sidingId": "S5", "slot": "a", "reverseCost": 1 } },
+    "S5B": { "id": "S5B", "type": "siding-slot", "x": 1050, "y": 370, "connections": ["S5A"], "label": "S5-b", "metadata": { "sidingId": "S5", "slot": "b", "reverseCost": 2 } },
     
-    // Sidings S4-S12
-    "S4A": { "id": "S4A", "type": "siding-slot", "x": 500, "y": 360, "connections": ["E2b2a1", "S4B"], "label": "S4-a", "metadata": { "sidingId": "S4", "slot": "a", "reverseCost": 1 } },
-    "S4B": { "id": "S4B", "type": "siding-slot", "x": 530, "y": 360, "connections": ["S4A"], "label": "S4-b", "metadata": { "sidingId": "S4", "slot": "b", "reverseCost": 2 } },
+    "S6_SWITCH": { "id": "S6_SWITCH", "type": "switch", "x": 950, "y": 400, "connections": ["S5_SWITCH", "S6A", "S7_SWITCH"], "label": "S6 Switch" },
+    "S6A": { "id": "S6A", "type": "siding-slot", "x": 1000, "y": 400, "connections": ["S6_SWITCH", "S6B"], "label": "S6-a", "metadata": { "sidingId": "S6", "slot": "a", "reverseCost": 1 } },
+    "S6B": { "id": "S6B", "type": "siding-slot", "x": 1050, "y": 400, "connections": ["S6A"], "label": "S6-b", "metadata": { "sidingId": "S6", "slot": "b", "reverseCost": 2 } },
     
-    "S5A": { "id": "S5A", "type": "siding-slot", "x": 500, "y": 380, "connections": ["E2b2a2", "S5B"], "label": "S5-a", "metadata": { "sidingId": "S5", "slot": "a", "reverseCost": 1 } },
-    "S5B": { "id": "S5B", "type": "siding-slot", "x": 530, "y": 380, "connections": ["S5A"], "label": "S5-b", "metadata": { "sidingId": "S5", "slot": "b", "reverseCost": 2 } },
+    "S7_SWITCH": { "id": "S7_SWITCH", "type": "switch", "x": 950, "y": 430, "connections": ["S6_SWITCH", "S7A", "S8_SWITCH"], "label": "S7 Switch" },
+    "S7A": { "id": "S7A", "type": "siding-slot", "x": 1000, "y": 430, "connections": ["S7_SWITCH", "S7B"], "label": "S7-a", "metadata": { "sidingId": "S7", "slot": "a", "reverseCost": 1 } },
+    "S7B": { "id": "S7B", "type": "siding-slot", "x": 1050, "y": 430, "connections": ["S7A"], "label": "S7-b", "metadata": { "sidingId": "S7", "slot": "b", "reverseCost": 2 } },
     
-    "S6A": { "id": "S6A", "type": "siding-slot", "x": 550, "y": 440, "connections": ["E2b2ba1", "S6B"], "label": "S6-a", "metadata": { "sidingId": "S6", "slot": "a", "reverseCost": 1 } },
-    "S6B": { "id": "S6B", "type": "siding-slot", "x": 580, "y": 440, "connections": ["S6A"], "label": "S6-b", "metadata": { "sidingId": "S6", "slot": "b", "reverseCost": 2 } },
+    "S8_SWITCH": { "id": "S8_SWITCH", "type": "switch", "x": 950, "y": 460, "connections": ["S7_SWITCH", "S8A", "S9_SWITCH"], "label": "S8 Switch" },
+    "S8A": { "id": "S8A", "type": "siding-slot", "x": 1000, "y": 460, "connections": ["S8_SWITCH", "S8B"], "label": "S8-a", "metadata": { "sidingId": "S8", "slot": "a", "reverseCost": 1 } },
+    "S8B": { "id": "S8B", "type": "siding-slot", "x": 1050, "y": 460, "connections": ["S8A"], "label": "S8-b", "metadata": { "sidingId": "S8", "slot": "b", "reverseCost": 2 } },
     
-    "S7A": { "id": "S7A", "type": "siding-slot", "x": 550, "y": 460, "connections": ["E2b2ba2", "S7B"], "label": "S7-a", "metadata": { "sidingId": "S7", "slot": "a", "reverseCost": 1 } },
-    "S7B": { "id": "S7B", "type": "siding-slot", "x": 580, "y": 460, "connections": ["S7A"], "label": "S7-b", "metadata": { "sidingId": "S7", "slot": "b", "reverseCost": 2 } },
+    "S9_SWITCH": { "id": "S9_SWITCH", "type": "switch", "x": 950, "y": 490, "connections": ["S8_SWITCH", "S9A", "S10_SWITCH"], "label": "S9 Switch" },
+    "S9A": { "id": "S9A", "type": "siding-slot", "x": 1000, "y": 490, "connections": ["S9_SWITCH", "S9B"], "label": "S9-a", "metadata": { "sidingId": "S9", "slot": "a", "reverseCost": 1 } },
+    "S9B": { "id": "S9B", "type": "siding-slot", "x": 1050, "y": 490, "connections": ["S9A"], "label": "S9-b", "metadata": { "sidingId": "S9", "slot": "b", "reverseCost": 2 } },
     
-    "S8A": { "id": "S8A", "type": "siding-slot", "x": 500, "y": 480, "connections": ["E2b2bb", "S8B"], "label": "S8-a", "metadata": { "sidingId": "S8", "slot": "a", "reverseCost": 1 } },
-    "S8B": { "id": "S8B", "type": "siding-slot", "x": 530, "y": 480, "connections": ["S8A"], "label": "S8-b", "metadata": { "sidingId": "S8", "slot": "b", "reverseCost": 2 } },
+    "S10_SWITCH": { "id": "S10_SWITCH", "type": "switch", "x": 950, "y": 520, "connections": ["S9_SWITCH", "S10A", "S11_SWITCH"], "label": "S10 Switch" },
+    "S10A": { "id": "S10A", "type": "siding-slot", "x": 1000, "y": 520, "connections": ["S10_SWITCH", "S10B"], "label": "S10-a", "metadata": { "sidingId": "S10", "slot": "a", "reverseCost": 1 } },
+    "S10B": { "id": "S10B", "type": "siding-slot", "x": 1050, "y": 520, "connections": ["S10A"], "label": "S10-b", "metadata": { "sidingId": "S10", "slot": "b", "reverseCost": 2 } },
     
-    "S9A": { "id": "S9A", "type": "siding-slot", "x": 500, "y": 320, "connections": ["E2b1bb", "S9B"], "label": "S9-a", "metadata": { "sidingId": "S9", "slot": "a", "reverseCost": 1 } },
-    "S9B": { "id": "S9B", "type": "siding-slot", "x": 530, "y": 320, "connections": ["S9A"], "label": "S9-b", "metadata": { "sidingId": "S9", "slot": "b", "reverseCost": 2 } },
+    "S11_SWITCH": { "id": "S11_SWITCH", "type": "switch", "x": 950, "y": 550, "connections": ["S10_SWITCH", "S11A", "S12_SWITCH"], "label": "S11 Switch" },
+    "S11A": { "id": "S11A", "type": "siding-slot", "x": 1000, "y": 550, "connections": ["S11_SWITCH", "S11B"], "label": "S11-a", "metadata": { "sidingId": "S11", "slot": "a", "reverseCost": 1 } },
+    "S11B": { "id": "S11B", "type": "siding-slot", "x": 1050, "y": 550, "connections": ["S11A"], "label": "S11-b", "metadata": { "sidingId": "S11", "slot": "b", "reverseCost": 2 } },
     
-    "S10A": { "id": "S10A", "type": "siding-slot", "x": 500, "y": 300, "connections": ["E2b1ba", "S10B"], "label": "S10-a", "metadata": { "sidingId": "S10", "slot": "a", "reverseCost": 1 } },
-    "S10B": { "id": "S10B", "type": "siding-slot", "x": 530, "y": 300, "connections": ["S10A"], "label": "S10-b", "metadata": { "sidingId": "S10", "slot": "b", "reverseCost": 2 } },
+    "S12_SWITCH": { "id": "S12_SWITCH", "type": "switch", "x": 950, "y": 580, "connections": ["S11_SWITCH", "S12A"], "label": "S12 Switch" },
+    "S12A": { "id": "S12A", "type": "siding-slot", "x": 1000, "y": 580, "connections": ["S12_SWITCH", "S12B"], "label": "S12-a", "metadata": { "sidingId": "S12", "slot": "a", "reverseCost": 1 } },
+    "S12B": { "id": "S12B", "type": "siding-slot", "x": 1050, "y": 580, "connections": ["S12A"], "label": "S12-b", "metadata": { "sidingId": "S12", "slot": "b", "reverseCost": 2 } },
     
-    "S11A": { "id": "S11A", "type": "siding-slot", "x": 500, "y": 260, "connections": ["E2b1ab", "S11B"], "label": "S11-a", "metadata": { "sidingId": "S11", "slot": "a", "reverseCost": 1 } },
-    "S11B": { "id": "S11B", "type": "siding-slot", "x": 530, "y": 260, "connections": ["S11A"], "label": "S11-b", "metadata": { "sidingId": "S11", "slot": "b", "reverseCost": 2 } },
-    
-    "S12A": { "id": "S12A", "type": "siding-slot", "x": 500, "y": 220, "connections": ["E2b1aa", "S12B"], "label": "S12-a", "metadata": { "sidingId": "S12", "slot": "a", "reverseCost": 1 } },
-    "S12B": { "id": "S12B", "type": "siding-slot", "x": 530, "y": 220, "connections": ["S12A"], "label": "S12-b", "metadata": { "sidingId": "S12", "slot": "b", "reverseCost": 2 } },
-    
-    // Test Track
-    "TEST_TRACK_W": { "id": "TEST_TRACK_W", "type": "track", "x": 300, "y": 520, "connections": ["E2b2b", "TEST_TRACK_E"], "label": "Test Track West" },
-    "TEST_TRACK_E": { "id": "TEST_TRACK_E", "type": "track", "x": 600, "y": 520, "connections": ["TEST_TRACK_W"], "label": "Test Track East" }
+    "TEST_TRACK_W": { "id": "TEST_TRACK_W", "type": "track", "x": 300, "y": 550, "connections": ["INTERCHANGE", "TEST_TRACK_E"], "label": "Test Track West" },
+    "TEST_TRACK_E": { "id": "TEST_TRACK_E", "type": "track", "x": 800, "y": 550, "connections": ["TEST_TRACK_W"], "label": "Test Track East" }
   },
   
   "connections": [
-    // Entry Track E-1 Path
-    { "from": "E1", "to": "E1a", "segments": ["E1-E1a"], "bidirectional": false },
-    { "from": "E1a", "to": "E1b", "segments": ["E1a-E1b"], "bidirectional": true },
-    { "from": "E1b", "to": "E1b1", "segments": ["E1b-E1b1"], "bidirectional": true },
-    { "from": "E1b1", "to": "E1b1a", "segments": ["E1b1-E1b1a"], "bidirectional": true },
-    { "from": "E1b1", "to": "E1b1b", "segments": ["E1b1-E1b1b"], "bidirectional": true },
-    { "from": "E1b1a", "to": "E1b1aa", "segments": ["E1b1a-E1b1aa"], "bidirectional": true },
-    { "from": "E1b1a", "to": "E1b1ab", "segments": ["E1b1a-E1b1ab"], "bidirectional": true },
-    { "from": "E1b1b", "to": "IL1", "segments": ["E1b1b-IL1"], "bidirectional": true },
-    { "from": "E1b1aa", "to": "IL2", "segments": ["E1b1aa-IL2"], "bidirectional": true },
-    { "from": "E1b1ab", "to": "IL3", "segments": ["E1b1ab-IL3"], "bidirectional": true },
-    { "from": "E1b2a", "to": "DIC", "segments": ["E1b2a-DIC"], "bidirectional": true },
-    { "from": "E1b2", "to": "E1b2a", "segments": ["E1b2-E1b2a"], "bidirectional": true },
-    { "from": "E1b", "to": "E1b2", "segments": ["E1b-E1b2"], "bidirectional": true },
-    
-    // Track Interchange
-    { "from": "E1b", "to": "INTERCHANGE", "segments": ["E1b-INTERCHANGE"], "bidirectional": true },
-    { "from": "INTERCHANGE", "to": "E2a", "segments": ["INTERCHANGE-E2a"], "bidirectional": true },
-    
-    // Exit Track E-2 Path
-    { "from": "E2", "to": "E2a", "segments": ["E2-E2a"], "bidirectional": false },
-    { "from": "E2a", "to": "E2W", "segments": ["E2a-E2W"], "bidirectional": true },
-    { "from": "E2a", "to": "E2a1", "segments": ["E2a-E2a1"], "bidirectional": true },
-    { "from": "E2a", "to": "E2a2", "segments": ["E2a-E2a2"], "bidirectional": true },
-    { "from": "E2a", "to": "E2b", "segments": ["E2a-E2b"], "bidirectional": true },
-    
-    // Workshop Connections
-    { "from": "E2W", "to": "E2W1", "segments": ["E2W-E2W1"], "bidirectional": true },
-    { "from": "E2W", "to": "E2W2", "segments": ["E2W-E2W2"], "bidirectional": true },
-    { "from": "E2W", "to": "SL1", "segments": ["E2W-SL1"], "bidirectional": true },
-    { "from": "E2W1", "to": "E2W1b", "segments": ["E2W1-E2W1b"], "bidirectional": true },
-    { "from": "E2W1b", "to": "E2W1b1", "segments": ["E2W1b-E2W1b1"], "bidirectional": true },
-    { "from": "E2W1b1", "to": "WL1", "segments": ["E2W1b1-WL1"], "bidirectional": true },
-    { "from": "E2W2", "to": "E2W2a", "segments": ["E2W2-E2W2a"], "bidirectional": true },
-    { "from": "E2W2a", "to": "E2W2aa", "segments": ["E2W2a-E2W2aa"], "bidirectional": true },
-    { "from": "E2W2a", "to": "E2W2ab", "segments": ["E2W2a-E2W2ab"], "bidirectional": true },
-    { "from": "E2W2aa", "to": "E2W2aa1", "segments": ["E2W2aa-E2W2aa1"], "bidirectional": true },
-    { "from": "E2W2aa", "to": "E2W2aa2", "segments": ["E2W2aa-E2W2aa2"], "bidirectional": true },
-    { "from": "E2W2aa1", "to": "WL3", "segments": ["E2W2aa1-WL3"], "bidirectional": true },
-    { "from": "E2W2aa2", "to": "WL2", "segments": ["E2W2aa2-WL2"], "bidirectional": true },
-    { "from": "E2W2ab", "to": "E2W2ab1", "segments": ["E2W2ab-E2W2ab1"], "bidirectional": true },
-    { "from": "E2W2ab", "to": "SL2", "segments": ["E2W2ab-SL2"], "bidirectional": true },
-    { "from": "E2W2ab1", "to": "WL4", "segments": ["E2W2ab1-WL4"], "bidirectional": true },
-    
-    // Siding Connections - Simple Sidings S1, S2
-    { "from": "E2a1", "to": "S2A", "segments": ["E2a1-S2A"], "bidirectional": true },
-    { "from": "S2A", "to": "S2B", "segments": ["S2A-S2B"], "bidirectional": true },
-    { "from": "E2a2", "to": "S1A", "segments": ["E2a2-S1A"], "bidirectional": true },
-    { "from": "S1A", "to": "S1B", "segments": ["S1A-S1B"], "bidirectional": true },
-    
-    // Main Siding Branch E-2b
-    { "from": "E2b", "to": "E2b1", "segments": ["E2b-E2b1"], "bidirectional": true },
-    { "from": "E2b", "to": "E2b2", "segments": ["E2b-E2b2"], "bidirectional": true },
-    { "from": "E2b", "to": "S3A", "segments": ["E2b-S3A"], "bidirectional": true },
-    { "from": "S3A", "to": "S3B", "segments": ["S3A-S3B"], "bidirectional": true },
-    
-    // E-2b.1 Branch (S9-S12)
-    { "from": "E2b1", "to": "E2b1a", "segments": ["E2b1-E2b1a"], "bidirectional": true },
-    { "from": "E2b1", "to": "E2b1b", "segments": ["E2b1-E2b1b"], "bidirectional": true },
-    { "from": "E2b1a", "to": "E2b1aa", "segments": ["E2b1a-E2b1aa"], "bidirectional": true },
-    { "from": "E2b1a", "to": "E2b1ab", "segments": ["E2b1a-E2b1ab"], "bidirectional": true },
-    { "from": "E2b1aa", "to": "S12A", "segments": ["E2b1aa-S12A"], "bidirectional": true },
-    { "from": "S12A", "to": "S12B", "segments": ["S12A-S12B"], "bidirectional": true },
-    { "from": "E2b1ab", "to": "S11A", "segments": ["E2b1ab-S11A"], "bidirectional": true },
-    { "from": "S11A", "to": "S11B", "segments": ["S11A-S11B"], "bidirectional": true },
-    { "from": "E2b1b", "to": "E2b1ba", "segments": ["E2b1b-E2b1ba"], "bidirectional": true },
-    { "from": "E2b1b", "to": "E2b1bb", "segments": ["E2b1b-E2b1bb"], "bidirectional": true },
-    { "from": "E2b1ba", "to": "S10A", "segments": ["E2b1ba-S10A"], "bidirectional": true },
-    { "from": "S10A", "to": "S10B", "segments": ["S10A-S10B"], "bidirectional": true },
-    { "from": "E2b1bb", "to": "S9A", "segments": ["E2b1bb-S9A"], "bidirectional": true },
-    { "from": "S9A", "to": "S9B", "segments": ["S9A-S9B"], "bidirectional": true },
-    
-    // E-2b.2 Branch (S4-S8)
-    { "from": "E2b2", "to": "E2b2a", "segments": ["E2b2-E2b2a"], "bidirectional": true },
-    { "from": "E2b2", "to": "E2b2b", "segments": ["E2b2-E2b2b"], "bidirectional": true },
-    { "from": "E2b2a", "to": "E2b2a1", "segments": ["E2b2a-E2b2a1"], "bidirectional": true },
-    { "from": "E2b2a", "to": "E2b2a2", "segments": ["E2b2a-E2b2a2"], "bidirectional": true },
-    { "from": "E2b2a1", "to": "S4A", "segments": ["E2b2a1-S4A"], "bidirectional": true },
-    { "from": "S4A", "to": "S4B", "segments": ["S4A-S4B"], "bidirectional": true },
-    { "from": "E2b2a2", "to": "S5A", "segments": ["E2b2a2-S5A"], "bidirectional": true },
-    { "from": "S5A", "to": "S5B", "segments": ["S5A-S5B"], "bidirectional": true },
-    { "from": "E2b2b", "to": "E2b2ba", "segments": ["E2b2b-E2b2ba"], "bidirectional": true },
-    { "from": "E2b2b", "to": "E2b2bb", "segments": ["E2b2b-E2b2bb"], "bidirectional": true },
-    { "from": "E2b2b", "to": "SL3", "segments": ["E2b2b-SL3"], "bidirectional": true },
-    { "from": "E2b2ba", "to": "E2b2ba1", "segments": ["E2b2ba-E2b2ba1"], "bidirectional": true },
-    { "from": "E2b2ba", "to": "E2b2ba2", "segments": ["E2b2ba-E2b2ba2"], "bidirectional": true },
-    { "from": "E2b2ba1", "to": "S6A", "segments": ["E2b2ba1-S6A"], "bidirectional": true },
-    { "from": "S6A", "to": "S6B", "segments": ["S6A-S6B"], "bidirectional": true },
-    { "from": "E2b2ba2", "to": "S7A", "segments": ["E2b2ba2-S7A"], "bidirectional": true },
-    { "from": "S7A", "to": "S7B", "segments": ["S7A-S7B"], "bidirectional": true },
-    { "from": "E2b2bb", "to": "S8A", "segments": ["E2b2bb-S8A"], "bidirectional": true },
-    { "from": "S8A", "to": "S8B", "segments": ["S8A-S8B"], "bidirectional": true },
-    
-    // Test Track
-    { "from": "E2b2b", "to": "TEST_TRACK_W", "segments": ["E2b2b-TEST_TRACK_W"], "bidirectional": true },
-    { "from": "TEST_TRACK_W", "to": "TEST_TRACK_E", "segments": ["TEST_TRACK_W-TEST_TRACK_E"], "bidirectional": true }
+    { "from": "E1", "to": "E2", "segments": ["E1-E2"], "bidirectional": true },
+    { "from": "E2", "to": "SW1", "segments": ["E2-SW1"], "bidirectional": true },
+    { "from": "SW1", "to": "SW2", "segments": ["SW1-SW2"], "bidirectional": true },
+    { "from": "SW1", "to": "WL1_ENTRY", "segments": ["SW1-WL1_ENTRY"], "bidirectional": true },
+    { "from": "WL1_ENTRY", "to": "WL1", "segments": ["WL1_ENTRY-WL1"], "bidirectional": true },
+    { "from": "SW2", "to": "INTERCHANGE", "segments": ["SW2-INTERCHANGE"], "bidirectional": true },
+    { "from": "INTERCHANGE", "to": "SW5", "segments": ["INTERCHANGE-SW5"], "bidirectional": true },
+    { "from": "SW5", "to": "IL_ENTRY", "segments": ["SW5-IL_ENTRY"], "bidirectional": true },
+    { "from": "IL_ENTRY", "to": "IL1", "segments": ["IL_ENTRY-IL1"], "bidirectional": true },
+    { "from": "IL1", "to": "IL2", "segments": ["IL1-IL2"], "bidirectional": true },
+    { "from": "IL2", "to": "IL3", "segments": ["IL2-IL3"], "bidirectional": true },
+    { "from": "IL3", "to": "DIC", "segments": ["IL3-DIC"], "bidirectional": true },
+    { "from": "DIC", "to": "INSPECTION_EXIT", "segments": ["DIC-INSPECTION_EXIT"], "bidirectional": true },
+    { "from": "INSPECTION_EXIT", "to": "SW6", "segments": ["INSPECTION_EXIT-SW6"], "bidirectional": true },
+    { "from": "SW6", "to": "SL3", "segments": ["SW6-SL3"], "bidirectional": true },
+    { "from": "SW6", "to": "SIDING_ENTRY", "segments": ["SW6-SIDING_ENTRY"], "bidirectional": true },
+    { "from": "SIDING_ENTRY", "to": "S1_SWITCH", "segments": ["SIDING_ENTRY-S1_SWITCH"], "bidirectional": true }
   ],
   
   "inspectionBays": ["IL1", "IL2", "IL3", "DIC"],
@@ -227,25 +115,5 @@
   "sidingSlots": ["S1A", "S1B", "S2A", "S2B", "S3A", "S3B", "S4A", "S4B", "S5A", "S5B", "S6A", "S6B", "S7A", "S7B", "S8A", "S8B", "S9A", "S9B", "S10A", "S10B", "S11A", "S11B", "S12A", "S12B"],
   "shuntingNecks": ["SL1", "SL2", "SL3"],
   "entryPoints": ["E1"],
-  "exitPoints": ["E2", "TEST_TRACK_E"],
-  "routingRules": {
-    "entryToInspection": {
-      "path": "E1 > E1a > E1b > E1b1 > (E1b1b|E1b1a) > IL1|IL2|IL3|DIC",
-      "description": "Entry track to inspection bay assignment"
-    },
-    "inspectionToWorkshop": {
-      "condition": "fitness < 60%",
-      "path": "IL* > E1b > INTERCHANGE > E2a > E2W > WL*",
-      "description": "Failed inspection routes to workshop"
-    },
-    "inspectionToSiding": {
-      "condition": "fitness >= 60%",
-      "path": "IL* > E1b > INTERCHANGE > E2a > E2b > S*",
-      "description": "Passed inspection routes to siding"
-    },
-    "specialS1Routing": {
-      "path": "E1b > E1b2 > E2a2 > S1A",
-      "description": "Special routing for S1 siding without using interchange"
-    }
-  }
+  "exitPoints": ["TEST_TRACK_E"]
 }
