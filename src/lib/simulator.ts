@@ -119,7 +119,7 @@ export class YardSimulator {
       id: trainId,
       number: trainData.number || `T${Object.keys(this.state.trains).length + 1}`,
       status: 'arriving',
-      locationNodeId: 'E1', // Always start at entry point
+      locationNodeId: 'E1',
       orientation: 'east',
       fitness: trainData.fitness || Math.floor(Math.random() * 100),
       mileage: trainData.mileage || Math.floor(Math.random() * 50000),
@@ -149,6 +149,7 @@ export class YardSimulator {
     return trainId;
   }
 
+  // Placeholder methods for complex routing - implement simplified version for now
   private autoAssignToInspection(trainId: string): void {
     const train = this.state.trains[trainId];
     if (!train || train.status !== 'arriving') return;
@@ -161,12 +162,12 @@ export class YardSimulator {
     if (availableBay) {
       this.assignTrainToInspection(trainId, availableBay);
     } else {
-      // Queue the train
+      // Queue the train at E1
       train.status = 'queued';
       this.emitEvent({
         type: 'train:updated',
         trainId,
-        message: `Train ${train.number} queued - all inspection bays occupied`,
+        message: `Train ${train.number} queued at entry`,
         severity: 'warning'
       });
     }
@@ -178,7 +179,8 @@ export class YardSimulator {
     
     if (!train || !bay || bay.status !== 'free') return;
 
-    // Move train to inspection bay
+    // Route train through E-1 path to inspection bay
+    // E1 > E1a > E1b > E1b1 > (E1b1b for IL1 | E1b1a > E1b1aa for IL2 | E1b1a > E1b1ab for IL3 | E1b2 > E1b2a for DIC)
     train.status = 'inspection';
     train.locationNodeId = bayId;
     train.lastUpdated = Date.now();
@@ -208,9 +210,19 @@ export class YardSimulator {
     
     if (!train || !bay || bay.occupiedBy !== trainId) return;
 
-    // Simulate inspection result
-    const passRate = train.failures.length > 0 ? 0.3 : 0.8;
-    const inspectionPassed = Math.random() < passRate;
+    // Simulate fitness assessment if not already set
+    if (train.fitness === undefined) {
+      train.fitness = Math.floor(Math.random() * 100);
+    }
+
+    // Simulate inspection result based on fitness and existing failures
+    const inspectionPassed = train.fitness >= 60;
+    
+    // Update train fitness if inspection failed
+    if (!inspectionPassed && train.fitness >= 60) {
+      train.fitness = Math.floor(Math.random() * 60); // Force fitness below 60%
+      train.failures = train.failures.length > 0 ? train.failures : ['brake-system'];
+    }
 
     // Free up the bay
     bay.status = 'free';
@@ -223,21 +235,24 @@ export class YardSimulator {
     this.emitEvent({
       type: 'inspection:result',
       trainId,
-      message: `Train ${train.number} inspection ${inspectionPassed ? 'passed' : 'failed'}`,
+      message: `Train ${train.number} inspection ${inspectionPassed ? 'passed' : 'failed'} (fitness: ${train.fitness}%)`,
       severity: inspectionPassed ? 'success' : 'warning',
-      data: { bayId, passed: inspectionPassed }
+      data: { bayId, passed: inspectionPassed, fitness: train.fitness }
     });
 
-    if (inspectionPassed) {
-      // Generate siding recommendations
+    // Route based on fitness level (< 60% to workshop, >= 60% to siding)
+    if (train.fitness < 60) {
+      // Route to workshop via E1 > INTERCHANGE > E2 > E2W > WL*
+      const recommendations = this.generateWorkshopRecommendations(trainId);
+      const bestRecommendation = recommendations[0];
+      if (bestRecommendation) {
+        setTimeout(() => {
+          this.assignTrainToWorkshop(trainId, bestRecommendation.targetId);
+        }, 1000);
+      }
+    } else {
+      // Route to siding via E1 > INTERCHANGE > E2 > E2b > S* (or special S1 routing)
       const recommendations = this.generateSidingRecommendations(trainId);
-      this.emitEvent({
-        type: 'plan:preview',
-        trainId,
-        message: `Generated ${recommendations.length} siding recommendations for train ${train.number}`,
-        severity: 'info',
-        data: { recommendations }
-      });
       
       // Auto-assign if not priority or departSoon
       if (!train.priority && !train.departSoon) {
@@ -247,24 +262,6 @@ export class YardSimulator {
             this.assignTrainToSiding(trainId, bestRecommendation.targetId, bestRecommendation.slot);
           }, 1000);
         }
-      }
-    } else {
-      // Generate workshop recommendations
-      const recommendations = this.generateWorkshopRecommendations(trainId);
-      this.emitEvent({
-        type: 'plan:preview',
-        trainId,
-        message: `Generated ${recommendations.length} workshop recommendations for train ${train.number}`,
-        severity: 'info',
-        data: { recommendations }
-      });
-
-      // Auto-assign to workshop if available
-      const bestRecommendation = recommendations[0];
-      if (bestRecommendation) {
-        setTimeout(() => {
-          this.assignTrainToWorkshop(trainId, bestRecommendation.targetId);
-        }, 1000);
       }
     }
 
@@ -306,7 +303,6 @@ export class YardSimulator {
       }
     });
 
-    // Sort by score (higher is better)
     return recommendations.sort((a, b) => b.score - a.score).slice(0, 5);
   }
 
