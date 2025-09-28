@@ -22,6 +22,7 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          glow: "hsl(var(--primary-glow))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -30,6 +31,14 @@ export default {
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
+        },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(var(--success-foreground))",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(var(--warning-foreground))",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
@@ -47,6 +56,20 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Metro yard specific colors
+        track: {
+          DEFAULT: "hsl(var(--track))",
+          active: "hsl(var(--track-active))",
+        },
+        node: "hsl(var(--node))",
+        train: {
+          DEFAULT: "hsl(var(--train))",
+          moving: "hsl(var(--train-moving))",
+          error: "hsl(var(--train-error))",
+        },
+        "inspection-bay": "hsl(var(--inspection-bay))",
+        workshop: "hsl(var(--workshop))",
+        siding: "hsl(var(--siding))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -57,6 +80,20 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+      },
+      backgroundImage: {
+        'gradient-control': 'var(--gradient-control)',
+        'gradient-track': 'var(--gradient-track)',
+        'gradient-active': 'var(--gradient-active)',
+      },
+      boxShadow: {
+        'control': 'var(--shadow-control)',
+        'panel': 'var(--shadow-panel)',
+        'train': 'var(--shadow-train)',
+      },
+      transitionTimingFunction: {
+        'smooth': 'var(--transition-smooth)',
+        'train': 'var(--transition-train)',
       },
       borderRadius: {
         lg: "var(--radius)",

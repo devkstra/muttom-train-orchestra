@@ -1,0 +1,119 @@
+{
+  "nodes": {
+    "E1": { "id": "E1", "type": "entry", "x": 50, "y": 200, "connections": ["E2"], "label": "E-1" },
+    "E2": { "id": "E2", "type": "track", "x": 100, "y": 200, "connections": ["E1", "SW1"], "label": "E-2" },
+    
+    "SW1": { "id": "SW1", "type": "switch", "x": 150, "y": 200, "connections": ["E2", "SW2", "WL1_ENTRY"], "label": "Entry Switch" },
+    "SW2": { "id": "SW2", "type": "switch", "x": 200, "y": 180, "connections": ["SW1", "INTERCHANGE"], "label": "Main Switch" },
+    
+    "WL1_ENTRY": { "id": "WL1_ENTRY", "type": "track", "x": 150, "y": 250, "connections": ["SW1", "WL1"], "label": "Workshop Entry" },
+    "WL1": { "id": "WL1", "type": "bay", "x": 100, "y": 300, "connections": ["WL1_ENTRY"], "label": "WL-1" },
+    "WL2": { "id": "WL2", "type": "bay", "x": 100, "y": 330, "connections": ["WL2_ENTRY"], "label": "WL-2" },
+    "WL3": { "id": "WL3", "type": "bay", "x": 100, "y": 360, "connections": ["WL3_ENTRY"], "label": "WL-3" },
+    "WL4": { "id": "WL4", "type": "bay", "x": 100, "y": 390, "connections": ["WL4_ENTRY"], "label": "WL-4 (Wheel Alignment)" },
+    
+    "WL2_ENTRY": { "id": "WL2_ENTRY", "type": "track", "x": 150, "y": 330, "connections": ["WL2", "SW3"], "label": "WL-2 Entry" },
+    "WL3_ENTRY": { "id": "WL3_ENTRY", "type": "track", "x": 150, "y": 360, "connections": ["WL3", "SW3"], "label": "WL-3 Entry" },
+    "WL4_ENTRY": { "id": "WL4_ENTRY", "type": "track", "x": 150, "y": 390, "connections": ["WL4", "SL2"], "label": "WL-4 Entry" },
+    
+    "SW3": { "id": "SW3", "type": "switch", "x": 200, "y": 345, "connections": ["WL2_ENTRY", "WL3_ENTRY", "SW4"], "label": "Workshop Switch" },
+    "SW4": { "id": "SW4", "type": "switch", "x": 250, "y": 345, "connections": ["SW3", "SL1"], "label": "Shunting Switch" },
+    
+    "SL1": { "id": "SL1", "type": "shunting", "x": 100, "y": 280, "connections": ["SW4"], "label": "SL-1 Shunting Neck" },
+    "SL2": { "id": "SL2", "type": "shunting", "x": 100, "y": 420, "connections": ["WL4_ENTRY"], "label": "SL-2 Shunting Neck" },
+    
+    "INTERCHANGE": { "id": "INTERCHANGE", "type": "switch", "x": 300, "y": 180, "connections": ["SW2", "SW5", "TEST_TRACK_W"], "label": "Track Interchange" },
+    "SW5": { "id": "SW5", "type": "switch", "x": 400, "y": 180, "connections": ["INTERCHANGE", "IL_ENTRY"], "label": "Inspection Switch" },
+    
+    "IL_ENTRY": { "id": "IL_ENTRY", "type": "track", "x": 500, "y": 180, "connections": ["SW5", "IL1"], "label": "Inspection Entry" },
+    "IL1": { "id": "IL1", "type": "bay", "x": 600, "y": 160, "connections": ["IL_ENTRY", "IL2"], "label": "IL-1" },
+    "IL2": { "id": "IL2", "type": "bay", "x": 700, "y": 160, "connections": ["IL1", "IL3"], "label": "IL-2" },
+    "IL3": { "id": "IL3", "type": "bay", "x": 800, "y": 160, "connections": ["IL2", "DIC"], "label": "IL-3" },
+    "DIC": { "id": "DIC", "type": "bay", "x": 900, "y": 160, "connections": ["IL3", "INSPECTION_EXIT"], "label": "Deep Internal Cleaning DIC-1" },
+    
+    "INSPECTION_EXIT": { "id": "INSPECTION_EXIT", "type": "track", "x": 900, "y": 200, "connections": ["DIC", "SW6"], "label": "Inspection Exit" },
+    "SW6": { "id": "SW6", "type": "switch", "x": 850, "y": 250, "connections": ["INSPECTION_EXIT", "SL3", "SIDING_ENTRY"], "label": "Exit Switch" },
+    
+    "SL3": { "id": "SL3", "type": "shunting", "x": 750, "y": 300, "connections": ["SW6"], "label": "SL-3 Shunting Neck" },
+    
+    "SIDING_ENTRY": { "id": "SIDING_ENTRY", "type": "track", "x": 900, "y": 250, "connections": ["SW6", "S1_SWITCH"], "label": "Siding Entry" },
+    
+    "S1_SWITCH": { "id": "S1_SWITCH", "type": "switch", "x": 950, "y": 250, "connections": ["SIDING_ENTRY", "S1A", "S2_SWITCH"], "label": "S1 Switch" },
+    "S1A": { "id": "S1A", "type": "siding-slot", "x": 1000, "y": 250, "connections": ["S1_SWITCH", "S1B"], "label": "S1-a", "metadata": { "sidingId": "S1", "slot": "a", "reverseCost": 1 } },
+    "S1B": { "id": "S1B", "type": "siding-slot", "x": 1050, "y": 250, "connections": ["S1A"], "label": "S1-b", "metadata": { "sidingId": "S1", "slot": "b", "reverseCost": 2 } },
+    
+    "S2_SWITCH": { "id": "S2_SWITCH", "type": "switch", "x": 950, "y": 280, "connections": ["S1_SWITCH", "S2A", "S3_SWITCH"], "label": "S2 Switch" },
+    "S2A": { "id": "S2A", "type": "siding-slot", "x": 1000, "y": 280, "connections": ["S2_SWITCH", "S2B"], "label": "S2-a", "metadata": { "sidingId": "S2", "slot": "a", "reverseCost": 1 } },
+    "S2B": { "id": "S2B", "type": "siding-slot", "x": 1050, "y": 280, "connections": ["S2A"], "label": "S2-b", "metadata": { "sidingId": "S2", "slot": "b", "reverseCost": 2 } },
+    
+    "S3_SWITCH": { "id": "S3_SWITCH", "type": "switch", "x": 950, "y": 310, "connections": ["S2_SWITCH", "S3A", "S4_SWITCH"], "label": "S3 Switch" },
+    "S3A": { "id": "S3A", "type": "siding-slot", "x": 1000, "y": 310, "connections": ["S3_SWITCH", "S3B"], "label": "S3-a", "metadata": { "sidingId": "S3", "slot": "a", "reverseCost": 1 } },
+    "S3B": { "id": "S3B", "type": "siding-slot", "x": 1050, "y": 310, "connections": ["S3A"], "label": "S3-b", "metadata": { "sidingId": "S3", "slot": "b", "reverseCost": 2 } },
+    
+    "S4_SWITCH": { "id": "S4_SWITCH", "type": "switch", "x": 950, "y": 340, "connections": ["S3_SWITCH", "S4A", "S5_SWITCH"], "label": "S4 Switch" },
+    "S4A": { "id": "S4A", "type": "siding-slot", "x": 1000, "y": 340, "connections": ["S4_SWITCH", "S4B"], "label": "S4-a", "metadata": { "sidingId": "S4", "slot": "a", "reverseCost": 1 } },
+    "S4B": { "id": "S4B", "type": "siding-slot", "x": 1050, "y": 340, "connections": ["S4A"], "label": "S4-b", "metadata": { "sidingId": "S4", "slot": "b", "reverseCost": 2 } },
+    
+    "S5_SWITCH": { "id": "S5_SWITCH", "type": "switch", "x": 950, "y": 370, "connections": ["S4_SWITCH", "S5A", "S6_SWITCH"], "label": "S5 Switch" },
+    "S5A": { "id": "S5A", "type": "siding-slot", "x": 1000, "y": 370, "connections": ["S5_SWITCH", "S5B"], "label": "S5-a", "metadata": { "sidingId": "S5", "slot": "a", "reverseCost": 1 } },
+    "S5B": { "id": "S5B", "type": "siding-slot", "x": 1050, "y": 370, "connections": ["S5A"], "label": "S5-b", "metadata": { "sidingId": "S5", "slot": "b", "reverseCost": 2 } },
+    
+    "S6_SWITCH": { "id": "S6_SWITCH", "type": "switch", "x": 950, "y": 400, "connections": ["S5_SWITCH", "S6A", "S7_SWITCH"], "label": "S6 Switch" },
+    "S6A": { "id": "S6A", "type": "siding-slot", "x": 1000, "y": 400, "connections": ["S6_SWITCH", "S6B"], "label": "S6-a", "metadata": { "sidingId": "S6", "slot": "a", "reverseCost": 1 } },
+    "S6B": { "id": "S6B", "type": "siding-slot", "x": 1050, "y": 400, "connections": ["S6A"], "label": "S6-b", "metadata": { "sidingId": "S6", "slot": "b", "reverseCost": 2 } },
+    
+    "S7_SWITCH": { "id": "S7_SWITCH", "type": "switch", "x": 950, "y": 430, "connections": ["S6_SWITCH", "S7A", "S8_SWITCH"], "label": "S7 Switch" },
+    "S7A": { "id": "S7A", "type": "siding-slot", "x": 1000, "y": 430, "connections": ["S7_SWITCH", "S7B"], "label": "S7-a", "metadata": { "sidingId": "S7", "slot": "a", "reverseCost": 1 } },
+    "S7B": { "id": "S7B", "type": "siding-slot", "x": 1050, "y": 430, "connections": ["S7A"], "label": "S7-b", "metadata": { "sidingId": "S7", "slot": "b", "reverseCost": 2 } },
+    
+    "S8_SWITCH": { "id": "S8_SWITCH", "type": "switch", "x": 950, "y": 460, "connections": ["S7_SWITCH", "S8A", "S9_SWITCH"], "label": "S8 Switch" },
+    "S8A": { "id": "S8A", "type": "siding-slot", "x": 1000, "y": 460, "connections": ["S8_SWITCH", "S8B"], "label": "S8-a", "metadata": { "sidingId": "S8", "slot": "a", "reverseCost": 1 } },
+    "S8B": { "id": "S8B", "type": "siding-slot", "x": 1050, "y": 460, "connections": ["S8A"], "label": "S8-b", "metadata": { "sidingId": "S8", "slot": "b", "reverseCost": 2 } },
+    
+    "S9_SWITCH": { "id": "S9_SWITCH", "type": "switch", "x": 950, "y": 490, "connections": ["S8_SWITCH", "S9A", "S10_SWITCH"], "label": "S9 Switch" },
+    "S9A": { "id": "S9A", "type": "siding-slot", "x": 1000, "y": 490, "connections": ["S9_SWITCH", "S9B"], "label": "S9-a", "metadata": { "sidingId": "S9", "slot": "a", "reverseCost": 1 } },
+    "S9B": { "id": "S9B", "type": "siding-slot", "x": 1050, "y": 490, "connections": ["S9A"], "label": "S9-b", "metadata": { "sidingId": "S9", "slot": "b", "reverseCost": 2 } },
+    
+    "S10_SWITCH": { "id": "S10_SWITCH", "type": "switch", "x": 950, "y": 520, "connections": ["S9_SWITCH", "S10A", "S11_SWITCH"], "label": "S10 Switch" },
+    "S10A": { "id": "S10A", "type": "siding-slot", "x": 1000, "y": 520, "connections": ["S10_SWITCH", "S10B"], "label": "S10-a", "metadata": { "sidingId": "S10", "slot": "a", "reverseCost": 1 } },
+    "S10B": { "id": "S10B", "type": "siding-slot", "x": 1050, "y": 520, "connections": ["S10A"], "label": "S10-b", "metadata": { "sidingId": "S10", "slot": "b", "reverseCost": 2 } },
+    
+    "S11_SWITCH": { "id": "S11_SWITCH", "type": "switch", "x": 950, "y": 550, "connections": ["S10_SWITCH", "S11A", "S12_SWITCH"], "label": "S11 Switch" },
+    "S11A": { "id": "S11A", "type": "siding-slot", "x": 1000, "y": 550, "connections": ["S11_SWITCH", "S11B"], "label": "S11-a", "metadata": { "sidingId": "S11", "slot": "a", "reverseCost": 1 } },
+    "S11B": { "id": "S11B", "type": "siding-slot", "x": 1050, "y": 550, "connections": ["S11A"], "label": "S11-b", "metadata": { "sidingId": "S11", "slot": "b", "reverseCost": 2 } },
+    
+    "S12_SWITCH": { "id": "S12_SWITCH", "type": "switch", "x": 950, "y": 580, "connections": ["S11_SWITCH", "S12A"], "label": "S12 Switch" },
+    "S12A": { "id": "S12A", "type": "siding-slot", "x": 1000, "y": 580, "connections": ["S12_SWITCH", "S12B"], "label": "S12-a", "metadata": { "sidingId": "S12", "slot": "a", "reverseCost": 1 } },
+    "S12B": { "id": "S12B", "type": "siding-slot", "x": 1050, "y": 580, "connections": ["S12A"], "label": "S12-b", "metadata": { "sidingId": "S12", "slot": "b", "reverseCost": 2 } },
+    
+    "TEST_TRACK_W": { "id": "TEST_TRACK_W", "type": "track", "x": 300, "y": 550, "connections": ["INTERCHANGE", "TEST_TRACK_E"], "label": "Test Track West" },
+    "TEST_TRACK_E": { "id": "TEST_TRACK_E", "type": "track", "x": 800, "y": 550, "connections": ["TEST_TRACK_W"], "label": "Test Track East" }
+  },
+  
+  "connections": [
+    { "from": "E1", "to": "E2", "segments": ["E1-E2"], "bidirectional": true },
+    { "from": "E2", "to": "SW1", "segments": ["E2-SW1"], "bidirectional": true },
+    { "from": "SW1", "to": "SW2", "segments": ["SW1-SW2"], "bidirectional": true },
+    { "from": "SW1", "to": "WL1_ENTRY", "segments": ["SW1-WL1_ENTRY"], "bidirectional": true },
+    { "from": "WL1_ENTRY", "to": "WL1", "segments": ["WL1_ENTRY-WL1"], "bidirectional": true },
+    { "from": "SW2", "to": "INTERCHANGE", "segments": ["SW2-INTERCHANGE"], "bidirectional": true },
+    { "from": "INTERCHANGE", "to": "SW5", "segments": ["INTERCHANGE-SW5"], "bidirectional": true },
+    { "from": "SW5", "to": "IL_ENTRY", "segments": ["SW5-IL_ENTRY"], "bidirectional": true },
+    { "from": "IL_ENTRY", "to": "IL1", "segments": ["IL_ENTRY-IL1"], "bidirectional": true },
+    { "from": "IL1", "to": "IL2", "segments": ["IL1-IL2"], "bidirectional": true },
+    { "from": "IL2", "to": "IL3", "segments": ["IL2-IL3"], "bidirectional": true },
+    { "from": "IL3", "to": "DIC", "segments": ["IL3-DIC"], "bidirectional": true },
+    { "from": "DIC", "to": "INSPECTION_EXIT", "segments": ["DIC-INSPECTION_EXIT"], "bidirectional": true },
+    { "from": "INSPECTION_EXIT", "to": "SW6", "segments": ["INSPECTION_EXIT-SW6"], "bidirectional": true },
+    { "from": "SW6", "to": "SL3", "segments": ["SW6-SL3"], "bidirectional": true },
+    { "from": "SW6", "to": "SIDING_ENTRY", "segments": ["SW6-SIDING_ENTRY"], "bidirectional": true },
+    { "from": "SIDING_ENTRY", "to": "S1_SWITCH", "segments": ["SIDING_ENTRY-S1_SWITCH"], "bidirectional": true }
+  ],
+  
+  "inspectionBays": ["IL1", "IL2", "IL3", "DIC"],
+  "workshopLines": ["WL1", "WL2", "WL3", "WL4"],
+  "sidingSlots": ["S1A", "S1B", "S2A", "S2B", "S3A", "S3B", "S4A", "S4B", "S5A", "S5B", "S6A", "S6B", "S7A", "S7B", "S8A", "S8B", "S9A", "S9B", "S10A", "S10B", "S11A", "S11B", "S12A", "S12B"],
+  "shuntingNecks": ["SL1", "SL2", "SL3"],
+  "entryPoints": ["E1"],
+  "exitPoints": ["TEST_TRACK_E"]
+}
