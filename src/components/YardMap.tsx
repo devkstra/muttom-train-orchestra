@@ -17,7 +17,7 @@ const YardMap: React.FC<YardMapProps> = ({
   className = '' 
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
-  const [viewBox, setViewBox] = useState({ x: 0, y: 0, width: 1200, height: 700 });
+  const [viewBox, setViewBox] = useState({ x: 0, y: 0, width: 1400, height: 800 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -128,46 +128,6 @@ const YardMap: React.FC<YardMapProps> = ({
               {node.label}
             </text>
           )}
-          
-          {/* Area backgrounds for special zones */}
-          {node.type === 'bay' && yardDefinition.inspectionBays.includes(node.id) && (
-            <rect
-              x={node.x - 25}
-              y={node.y - 25}
-              width="50"
-              height="50"
-              fill="hsl(var(--inspection-bay))"
-              fillOpacity="0.2"
-              rx="5"
-              className="pointer-events-none"
-            />
-          )}
-          
-          {node.type === 'bay' && yardDefinition.workshopLines.includes(node.id) && (
-            <rect
-              x={node.x - 25}
-              y={node.y - 25}
-              width="50"
-              height="50"
-              fill="hsl(var(--workshop))"
-              fillOpacity="0.2"
-              rx="5"
-              className="pointer-events-none"
-            />
-          )}
-          
-          {node.type === 'siding-slot' && (
-            <rect
-              x={node.x - 20}
-              y={node.y - 15}
-              width="40"
-              height="30"
-              fill="hsl(var(--siding))"
-              fillOpacity="0.15"
-              rx="3"
-              className="pointer-events-none"
-            />
-          )}
         </g>
       );
     });
@@ -226,14 +186,23 @@ const YardMap: React.FC<YardMapProps> = ({
   // Zone labels
   const renderZoneLabels = () => {
     return (
-      <g className="pointer-events-none select-none">
-        <text x={50} y={150} fontSize="14" fontWeight="bold" fill="hsl(var(--foreground))">Entry/Exit Point</text>
-        <text x={50} y={250} fontSize="14" fontWeight="bold" fill="hsl(var(--foreground))">WORKSHOP</text>
-        <text x={300} y={150} fontSize="14" fontWeight="bold" fill="hsl(var(--foreground))">Track Interchange</text>
-        <text x={600} y={130} fontSize="14" fontWeight="bold" fill="hsl(var(--foreground))">Inspection Bay</text>
-        <text x={950} y={200} fontSize="14" fontWeight="bold" fill="hsl(var(--foreground))">Sidings</text>
-        <text x={970} y={220} fontSize="12" fill="hsl(var(--muted-foreground))">12 siding X 2 trains each</text>
-        <text x={300} y={580} fontSize="14" fontWeight="bold" fill="hsl(var(--foreground))">Test Track</text>
+      <g className="pointer-events-none select-none opacity-50">
+        <rect x={25} y={175} width={200} height={100} fill="hsl(var(--background))" fillOpacity="0.5" rx="10" />
+        <text x={50} y={235} fontSize="14" fontWeight="bold" fill="hsl(var(--foreground))">Entry/Exit Point</text>
+        
+        <rect x={25} y={300} width={200} height={300} fill="hsl(var(--workshop))" fillOpacity="0.1" rx="10" />
+        <text x={50} y={320} fontSize="14" fontWeight="bold" fill="hsl(var(--foreground))">WORKSHOP</text>
+
+        <rect x={850} y={100} width={150} height={150} fill="hsl(var(--inspection-bay))" fillOpacity="0.1" rx="10" />
+        <text x={875} y={100} fontSize="14" fontWeight="bold" fill="hsl(var(--foreground))">Inspection Bay</text>
+        
+        <rect x={1175} y={275} width={125} height={375} fill="hsl(var(--siding))" fillOpacity="0.1" rx="10" />
+        <text x={1200} y={270} fontSize="14" fontWeight="bold" fill="hsl(var(--foreground))">Sidings</text>
+        <text x={1200} y={290} fontSize="10" fill="hsl(var(--muted-foreground))">12 sidings X 2 trains each</text>
+        
+        <text x={425} y={180} fontSize="14" fontWeight="bold" fill="hsl(var(--foreground))">Track Interchange</text>
+        <text x={50} y={680} fontSize="14" fontWeight="bold" fill="hsl(var(--foreground))">Test Track</text>
+        <text x={900} y={30} fontSize="12" fill="hsl(var(--muted-foreground))">Emergency Stabling Line</text>
       </g>
     );
   };
@@ -258,7 +227,7 @@ const YardMap: React.FC<YardMapProps> = ({
         </button>
         <button
           onClick={() => {
-            setViewBox({ x: 0, y: 0, width: 1200, height: 700 });
+            setViewBox({ x: 0, y: 0, width: 1400, height: 800 });
             setZoom(1);
           }}
           className="bg-card border border-border rounded p-2 hover:bg-secondary transition-colors text-xs"
@@ -311,13 +280,13 @@ const YardMap: React.FC<YardMapProps> = ({
             <path d="M 50 0 L 0 0 0 50" fill="none" stroke="hsl(var(--border))" strokeWidth="0.5" opacity="0.3"/>
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#grid)" />
+        <rect width="1400" height="800" fill="url(#grid)" />
         
         {/* Render all elements */}
+        {renderZoneLabels()}
         {renderConnections()}
         {renderNodes()}
         {renderTrains()}
-        {renderZoneLabels()}
       </svg>
     </div>
   );
